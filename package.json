@@ -1,0 +1,15 @@
+{
+  "name": "color-sticker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ashley",
+  "license": "MIT",
+  "dependencies": {
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.1.1"
+  }
+}
