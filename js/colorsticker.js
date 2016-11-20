@@ -4,17 +4,49 @@
 	var initPosition = 100;
 	var hasMovingSticker = false;
 	var defaults = {
-		
+		width: '200px',
+		height: '200px',
+		color : '',
+		saveStickerCallback : null
  	}
 	
-	function Sticker(element,options){
+	function Sticker(element,options,stickers){
 		this.element = $(element);
 		this.options = $.extend({}, defaults, options);
-		this.init();
+		this.init(stickers);
 	}
 	Sticker.prototype = {
-		init : function(){
+		init : function(existStickers){
 			this._createAddingBtn();
+			if(existStickers && existStickers.length>0){
+				this.loadExistStickers(existStickers);
+			}
+		},
+		loadExistStickers : function(existStickers){
+			for(var i=0;i<existStickers.length;i++){
+				var stickerEl = document.createElement('div');
+				stickerEl.className = 'sticker ' + this.options.color;
+				stickerEl.style.width = this.options.width;
+				stickerEl.style.height = this.options.height;
+				stickerEl.style.left =  existStickers[i].left;
+				stickerEl.style.top = existStickers[i].top;
+				var tape = document.createElement('div');
+				tape.className = 'tape';
+				var stickerTA = document.createElement('textarea');
+				var closeBtn = $('<button type="button" class="close-btn">×</button>');
+				var saveBtn = $('<button type="button" class="save-btn"></button>');
+				stickerEl.appendChild(closeBtn[0]);
+				stickerEl.appendChild(saveBtn[0]);
+				stickerEl.appendChild(tape);
+				stickerEl.appendChild(stickerTA);
+				document.getElementsByTagName('body')[0].appendChild(stickerEl);
+				stickerEl.lastElementChild.value = existStickers[i].content;
+				stickerEl.childNodes[0].addEventListener('click',this.closeSticker);
+				$(stickerEl.childNodes[1]).on('click',this,this.saveSticker);
+				$(stickerEl).on('mousedown', this._dragSticker);
+				$(window).on('mousemove', this._moveSticker);
+				$(window).on('mouseup', this._dropSticker);
+			}
 		},
 		_createAddingBtn : function(){
 			var addingBtn = document.createElement('div');
@@ -28,23 +60,29 @@
 		_createSticker : function(event){
 			var Sticker = event.data;
 			var stickerEl = document.createElement('div');
-			stickerEl.className = 'sticker';
-			if((document.body.clientWidth + document.body.scrollLeft) - counter*240 < 240){
+			var stickerWidth = Number(Sticker.options.width.replace('px',''));
+			var stickerHeight = Number(Sticker.options.height.replace('px',''));
+			stickerEl.className = 'sticker ' + Sticker.options.color;
+			if((document.body.clientWidth + document.body.scrollLeft) - counter*(stickerWidth+40) < (stickerWidth+40)){
 				counter = 0;
 				line++;
 			} 
-			stickerEl.style.left = initPosition + counter*240 + 'px';
-			stickerEl.style.top = initPosition + line*270 + 'px';
+			stickerEl.style.width = Sticker.options.width;
+			stickerEl.style.height = Sticker.options.height;
+			stickerEl.style.left = initPosition + counter*(stickerWidth+40) + 'px';
+			stickerEl.style.top = initPosition + line*(stickerHeight+40) + 'px';
 			var tape = document.createElement('div');
 			tape.className = 'tape';
 			var stickerTA = document.createElement('textarea');
 			var closeBtn = $('<button type="button" class="close-btn">×</button>');
-
+			var saveBtn = $('<button type="button" class="save-btn"></button>');
 			stickerEl.appendChild(closeBtn[0]);
+			stickerEl.appendChild(saveBtn[0]);
 			stickerEl.appendChild(tape);
 			stickerEl.appendChild(stickerTA);
 			document.getElementsByTagName('body')[0].appendChild(stickerEl);
 			stickerEl.childNodes[0].addEventListener('click',Sticker.closeSticker);
+			$(stickerEl.childNodes[1]).on('click',Sticker,Sticker.saveSticker);
 			counter++;
 			$(stickerEl).on('mousedown', Sticker._dragSticker);
 			$(window).on('mousemove', Sticker._moveSticker);
@@ -89,7 +127,6 @@
 				var stickers = $('.sticker');
 				for(var i=0;i<stickers.length;i++){
 					if(stickers[i].moving){
-
 						stickers[i].style.left = stickers[i].clientX = event.clientX;  
 						stickers[i].style.top = stickers[i].clientY = event.clientY; 
 						stickers[i].style.cursor = 'none';
@@ -102,12 +139,24 @@
 		},
 		closeSticker : function(){
 			this.parentElement.remove();
+		},
+		saveSticker : function(event){
+			var Sticker = event.data;
+			var stickerEl = this.parentElement;
+			if($.isFunction(Sticker.options.saveStickerCallback)) {
+							var stickerItem = {
+								left : stickerEl.style.left,
+								top : stickerEl.style.top,
+								content : this.parentElement.lastElementChild.value
+							} 
+							Sticker.options.saveStickerCallback.call(this, stickerItem);
+						}
 		}
 
 	}
 
-	$.sticker = function(options, sticker){
-		new Sticker(this,options);
+	$.sticker = function(options, stickers){
+		new Sticker(this,options, stickers);
 	}
 
 })(window.jQuery, window, document);

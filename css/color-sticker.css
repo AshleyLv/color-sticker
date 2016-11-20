@@ -2,8 +2,6 @@
 		
 		.sticker{
 			position: absolute;
-			height:200px;
-			width:200px;
 			z-index: 100;
 			top:100px;
 			left:100px;
@@ -46,6 +44,30 @@
 			z-index: 2;
 			cursor: pointer;
 		}
+		.sticker.pink textarea{
+			background-color: #ffd8cc !important;
+		}
+		.sticker.pink .tape{
+			background-color:rgba(255, 219, 204, 0.5) !important;
+		}
+		.sticker.green textarea{
+			background-color: #ccffe8;
+		}
+		.sticker.green .tape{
+			background-color: rgba(204, 255, 239, 0.5);
+		}
+		.sticker.blue textarea{
+			background-color: #ccf0ff;
+		}
+		.sticker.blue .tape{
+			background-color:rgba(204, 245, 255, 0.5);
+		}
+		.sticker.purple textarea{
+			background-color: #d2ccff;
+		}
+		.sticker.purple .tape{
+			background-color:rgba(222, 204, 255, 0.5);
+		}
 		.sticker .close-btn{
 			-webkit-appearance: none;
 			padding: 0;
@@ -57,7 +79,22 @@
 			position: absolute;
 			z-index: 3;
 			right: 4px;
-			font-family: "Helvetica Neue", Helvetica, "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
+		}
+		.sticker .save-btn{
+			-webkit-appearance: none;
+			padding: 0;
+			cursor: pointer;
+			background: 0 0;
+			border: 0;
+			font-size: 20px;
+			color: #aaa;
+			position: absolute;
+			z-index: 3;
+			right: 4px;
+			bottom: 4px;
+			width: 16px;
+			height: 16px;
+			background-image: url(../img/save-btn.png);
 		}
 		.sticker-adding-btn{
 			width: 50px;
@@ -70,6 +107,7 @@
 			color: #fff;
 			position: absolute;
 			right: 10px;
+			top:10px;
 			-moz-box-shadow: 3px 3px 5px rgba(33,33,33,0.7);
 			-webkit-box-shadow: 3px 3px 5px rgba(33,33,33,0.7);
 			box-shadow: 3px 3px 5px rgba(33,33,33,0.7);
