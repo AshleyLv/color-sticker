@@ -108,10 +108,12 @@
 			position: absolute;
 			right: 10px;
 			top:10px;
+			font-weight: 700;
 			-moz-box-shadow: 3px 3px 5px rgba(33,33,33,0.7);
 			-webkit-box-shadow: 3px 3px 5px rgba(33,33,33,0.7);
 			box-shadow: 3px 3px 5px rgba(33,33,33,0.7);
 			cursor: pointer;
+			line-height: 45px;
 		}
 		.sticker-adding-btn:hover{
 			background: #0badc1;

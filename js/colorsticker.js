@@ -7,7 +7,8 @@
 		width: '200px',
 		height: '200px',
 		color : '',
-		saveStickerCallback : null
+		saveStickerCallback : null,
+		closeStickerCallback : null
  	}
 	
 	function Sticker(element,options,stickers){
@@ -30,6 +31,7 @@
 				stickerEl.style.height = this.options.height;
 				stickerEl.style.left =  existStickers[i].left;
 				stickerEl.style.top = existStickers[i].top;
+				stickerEl.setAttribute('stickerId',existStickers[i].stickerId);
 				var tape = document.createElement('div');
 				tape.className = 'tape';
 				var stickerTA = document.createElement('textarea');
@@ -41,7 +43,7 @@
 				stickerEl.appendChild(stickerTA);
 				document.getElementsByTagName('body')[0].appendChild(stickerEl);
 				stickerEl.lastElementChild.value = existStickers[i].content;
-				stickerEl.childNodes[0].addEventListener('click',this.closeSticker);
+				$(stickerEl.childNodes[0]).on('click',this,this.closeSticker);
 				$(stickerEl.childNodes[1]).on('click',this,this.saveSticker);
 				$(stickerEl).on('mousedown', this._dragSticker);
 				$(window).on('mousemove', this._moveSticker);
@@ -81,7 +83,7 @@
 			stickerEl.appendChild(tape);
 			stickerEl.appendChild(stickerTA);
 			document.getElementsByTagName('body')[0].appendChild(stickerEl);
-			stickerEl.childNodes[0].addEventListener('click',Sticker.closeSticker);
+			$(stickerEl.childNodes[0]).on('click',Sticker,Sticker.closeSticker);
 			$(stickerEl.childNodes[1]).on('click',Sticker,Sticker.saveSticker);
 			counter++;
 			$(stickerEl).on('mousedown', Sticker._dragSticker);
@@ -137,7 +139,11 @@
 			}
 			
 		},
-		closeSticker : function(){
+		closeSticker : function(event){
+			var Sticker = event.data;
+			if($.isFunction(Sticker.options.closeStickerCallback)) {
+				Sticker.options.closeStickerCallback.call(this, this.parentElement.getAttribute('stickerId'));
+			}
 			this.parentElement.remove();
 		},
 		saveSticker : function(event){

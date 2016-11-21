@@ -2,20 +2,44 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Color Sticker</title>
+	<link rel="stylesheet" type="text/css" href="demo-css/highlight-railscasts.css">
 	<link rel="stylesheet" type="text/css" href="css/color-sticker.css">
-	<link rel="stylesheet" type="text/css" href="node_modules/font-awesome/css/font-awesome.min.css">
 	<style type="text/css">
+		body{
+			margin: 0;
+			padding: 0;
+			font-family: 'Microsoft Yahei';
+		}
+		.demo-head{
+			width: 100%;
+			height: 240px;
+			background-color: pink;
+			color: #333;
+			padding-top: 120px;
+			
+			background-image: url(img/bg.jpg);
+		}
+		.demo-head .title{
+			font-size: 40px;
+			margin-left: 100px;
+			font-weight: 700;
+		}
+		.demo-head .sub-title{
+			font-size: 24px;
+    		line-height: 76px;
+    		margin-left: 100px;
+		}
 		.demo-container{
 			width: 900px;
-			height: 1000px;
-			border: 3px solid #da314f;
+			min-height: 1000px;
 			margin: 40px auto;
-			font-family: 'Microsoft Yahei';
+			
 			padding:5px 10px;
 			
 			background-color: #fff;
 		}
+		
 		.demo-container h1{
 			text-align: center;
 			color: #a25b85;
@@ -23,31 +47,98 @@
 		ul{
 			color: #a25b85;
     		line-height: 27px;
-
+		}
+		.demo-head .download{
+			display: block;
+			width: 120px;
+			height: 46px;
+			background-color: #0cd3ec;
+			color: #fff;
+			text-decoration: none;
+			font-size: 22px;
+			text-align: center;
+			border-radius: 5px;
+			line-height: 46px;
+			margin-left: 100px;
+			-moz-box-shadow: 3px 3px 5px rgba(33,33,33,0.7);
+			-webkit-box-shadow: 3px 3px 5px rgba(33,33,33,0.7);
+			box-shadow: 3px 3px 5px rgba(33,33,33,0.7);
+		}
+		.demo-head .download:hover{
+			background: #0badc1;
 		}
 	</style>
 </head>
 <body>
+	<div class="demo-head">
+		<div class="title">基于jQuery的页面便签插件</div>
+		<div class="sub-title">一个可以任意拖拽，保存，删除，导入，定制颜色的页面便签</div>
+		<a class="download" href="https://github.com/AshleyLv/color-sticker">下载插件</a>
+	</div>
 	<div class="demo-container">
-		<h1>一个基于jQuery的页面便签插件</h1>
+		
 		<h3>插件功能</h3>
 		<ul>
 			<li>点击右上方的蓝色+按钮，可以在页面中添加一个便签,用户可以在便签中输入需要记录的文字</li>
-			<li>点击便签右下角的保持按钮，便签里的内容已经便签的位置将会通过用户自定义的回调保存起来（你可以将这些内容保持在数据库里，便于用户下载打开页面的时候展现）</li>
-			<li>点击便签右上方的可以关闭便签</li>
+			<li>点击便签右下角的保存按钮，便签里的内容以及便签的位置将会通过用户自定义的回调保存起来（你可以将这些内容保持在数据库里，便于用户下载打开页面的时候展现）</li>
+			<li>点击便签右上方的关闭按钮可以关闭便签,回调函数会得到该便签的stickerId</li>
 			<li>按住便签上方的彩色胶带，可以在屏幕上拖拽便签</li>
 			<li>插件支持通过数组格式导入已有的便签，比如上面提到存入数据库的内容，可以在用户再次载入页面的时候通过插件渲染在页面上</li>
 		</ul>
-		<h3>插件配置</h3>
+		<h3>使用插件</h3>
+		<div>1. 在html代码中引用colorsticker.js和color-sticker.css文件(引入插件相关的保存图标)</div>
+		<pre><code class="html">
+&lt;link rel="stylesheet" type="text/css" href="css/color-sticker.css"&gt;
+&lt;script type="text/javascript" src="js/colorsticker.js"&gt;&lt;/script&gt;
+	</code></pre>
+		<div>2. 初始化插件</div>
+			<pre><code class="javascript">
+$.sticker({}); //采用默认配置引入便签插件，页面加载后，页面右上方会出现添加便签的按钮
+	</code></pre>
+		<div>3. 插件配置</div>
+				<pre><code class="javascript">
+$.sticker({
+	color:'purple', //便签默认是黄色，可以选择pink,green,blue,purple
+	width:'200px',  //便签的宽度，默认是200px
+	height:'300px', //便签的高度，默认是200px
+	saveStickerCallback: function(sticker){   //保存便签的回调方法，参数是sticker对象，包括便签的位置和内容信息
+		alert('sticker info: left ' + sticker.left + ',top ' + sticker.top + ',content ' + sticker.content);
+	}，
+	closeStickerCallback： function(stickerId){  //删除便签的回调方法，参数是便签的stickerId
+		alert(stickerId);
+	}
+});
+	</code></pre>
+		<div>3. 导入便签的格式</div>
+						<pre><code class="javascript">
+/**导入的便签Object有以下属性：
+ *stickerId--用户自定义的便签Id,用于删除便签后便于同时删除后台数据
+ *left--便签与浏览器左侧的距离
+ *top--便签与浏览器上方的边距
+ *content--便签的内容	
+ *将便签对象存在一个数组中导入
+**/
+var stickers = [{stickerId:'2',left:'1000px', top:'100px', content:'I\'m Ashley\'s cat'}];
+$.sticker({
+	color:'purple', //便签默认是黄色，可以选择pink,green,blue,purple
+	width:'200px',  //便签的宽度
+	height:'300px', //便签的高度
+	saveStickerCallback: function(sticker){   //保存便签的回调方法，参数是sticker对象，包括便签的位置和内容信息
+		alert('sticker info: left ' + sticker.left + ',top ' + sticker.top + ',content ' + sticker.content);
+	}，
+	closeStickerCallback： function(stickerId){  //删除便签的回调方法，参数是便签的stickerId
+		alert(stickerId);
+	}
+}，stickers);//将导入的便签数组作为插件的第二个参数
+	</code></pre>
 	</div>
 	<script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
 	<script type="text/javascript" src="js/colorsticker.js"></script>
+	<script type="text/javascript" src="demo-js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
 	<script type="text/javascript">
-		var stickers = [{left:'300px', top:'300px', content:'It is a cat...'},{left:'1000px', top:'100px', content:'I\'m Ashley\'s cat'}]
+		var stickers = [{stickerId:'1',left:'100px', top:'350px', content:'It is a cat...'},{stickerId:'2',left:'1000px', top:'100px', content:'I\'m Ashley\'s cat'}];
 		$.sticker({
-			color:'purple',
-			width:'200px',
-			height:'300px',
 			saveStickerCallback: function(sticker){
 				alert('sticker info: left ' + sticker.left + ',top ' + sticker.top + ',content ' + sticker.content);
 			}
