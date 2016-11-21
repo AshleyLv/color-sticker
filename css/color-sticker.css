@@ -105,7 +105,7 @@
 			border-radius: 50%;
 			padding: 0;
 			color: #fff;
-			position: absolute;
+			position: fixed;
 			right: 10px;
 			top:10px;
 			font-weight: 700;
