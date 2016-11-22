@@ -9,7 +9,7 @@ The color sticker has following features:
   - You can remove a sticker by click on the close button
 
 How to use it:<br/>
-  - Inclouding colorsticker.js and color-sticker.css to your html code
+  - Inclouding colorsticker.js and color-sticker.css to your html code<br/>
  ```
 <link rel="stylesheet" type="text/css" href="css/color-sticker.css">
 <script type="text/javascript" src="js/colorsticker.js"></script>
