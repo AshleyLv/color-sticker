@@ -10,10 +10,8 @@ The color sticker has following features:
 
 How to use it:<br/>
   - Inclouding colorsticker.js and color-sticker.css to your html code<br/>
- ```
+```
 <link rel="stylesheet" type="text/css" href="css/color-sticker.css">
-```
-```
 <script type="text/javascript" src="js/colorsticker.js"></script>
 ```
   - default initialization
