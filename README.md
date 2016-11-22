@@ -8,18 +8,18 @@ The color sticker has following features:
   - you can importing existing stickers with a json object
   - You can remove a sticker by click on the close button
 
-How to use it:
-1. First, inclouding colorsticker.js and color-sticker.css to your html code
- ````
+How to use it:<br/>
+  - Inclouding colorsticker.js and color-sticker.css to your html code
+ ```
 <link rel="stylesheet" type="text/css" href="css/color-sticker.css">
 <script type="text/javascript" src="js/colorsticker.js"></script>
-````
-2. default initialization
-````
+```
+  - default initialization
+```
 $.sticker({});
-````
-3. settings
-````
+```
+  - settings
+```
 $.sticker({
 	color:'purple', //the default value is yellow, we also provide pink,green,blue,purple for you to choice
 	width:'200px',  //the width of each sticker, the default value is 200px
@@ -31,9 +31,9 @@ $.sticker({
 		alert(stickerId);
 	}
 });
-````
-4. importing existing stickers
-````
+```
+  - importing existing stickers
+```
 /**Importing stickers as an array, each object in the array should has following attrbutes.
  *stickerId--A sticker id, which is used to tell the webapp which sticker has been removed by user
  *left--location info
@@ -52,4 +52,4 @@ $.sticker({
 		alert(stickerId);
 	}
 }，stickers);//The sticker array is the second param of the instantiation function
-````
+```
