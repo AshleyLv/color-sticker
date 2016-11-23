@@ -16,11 +16,11 @@ How to use it:<br/>
 ```
   - default initialization
 ```
-$.sticker({});
+$('body').sticker({});
 ```
   - settings
 ```
-$.sticker({
+$('body').sticker({
 	color:'purple', //the default value is yellow, we also provide pink,green,blue,purple for you to choice
 	width:'200px',  //the width of each sticker, the default value is 200px
 	height:'300px', //the height of each sticker, the default value is 200px
@@ -41,7 +41,7 @@ $.sticker({
  *content--content of sticker
 **/
 var stickers = [{stickerId:'2',left:'1000px', top:'100px', content:'I\'m Ashley\'s cat'}];
-$.sticker({
+$('body').sticker({
 	color:'purple',
 	width:'200px',
 	height:'300px',
