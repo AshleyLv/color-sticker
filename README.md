@@ -16,7 +16,7 @@ How to use it:<br/>
 ```
   - default initialization
 ```
-$('body').sticker({});
+$('body').sticker();
 ```
   - settings
 ```
