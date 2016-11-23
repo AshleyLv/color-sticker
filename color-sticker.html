@@ -93,11 +93,11 @@
 	</code></pre>
 		<div>2. 初始化插件</div>
 			<pre><code class="javascript">
-$.sticker({}); //采用默认配置引入便签插件，页面加载后，页面右上方会出现添加便签的按钮
+$('body').sticker(); //采用默认配置引入便签插件，页面加载后，页面右上方会出现添加便签的按钮
 	</code></pre>
 		<div>3. 插件配置</div>
 				<pre><code class="javascript">
-$.sticker({
+$('body').sticker({
 	color:'purple', //便签默认是黄色，可以选择pink,green,blue,purple
 	width:'200px',  //便签的宽度，默认是200px
 	height:'300px', //便签的高度，默认是200px
@@ -119,7 +119,7 @@ $.sticker({
  *将便签对象存在一个数组中导入
 **/
 var stickers = [{stickerId:'2',left:'1000px', top:'100px', content:'I\'m Ashley\'s cat'}];
-$.sticker({
+$('body').sticker({
 	color:'purple', //便签默认是黄色，可以选择pink,green,blue,purple
 	width:'200px',  //便签的宽度
 	height:'300px', //便签的高度
@@ -138,7 +138,7 @@ $.sticker({
 	<script>hljs.initHighlightingOnLoad();</script>
 	<script type="text/javascript">
 		var stickers = [{stickerId:'1',left:'100px', top:'350px', content:'It is a cat...'},{stickerId:'2',left:'1000px', top:'100px', content:'I\'m Ashley\'s cat'}];
-		$.sticker({
+		$('body').sticker({
 			saveStickerCallback: function(sticker){
 				alert('sticker info: left ' + sticker.left + ',top ' + sticker.top + ',content ' + sticker.content);
 			}

@@ -161,7 +161,7 @@
 
 	}
 
-	$.sticker = function(options, stickers){
+	$.fn.sticker = function(options, stickers){
 		new Sticker(this,options, stickers);
 	}
 
