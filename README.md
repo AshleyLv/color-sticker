@@ -1,7 +1,7 @@
 # Color Sticker
 
 This is a jQuery plugin, which allows you to adding stickers on your webpage.
-This is the [demo]https://ashleylv.github.io/color-sticker/color-sticker.html
+This is the [demo](https://ashleylv.github.io/color-sticker/color-sticker.html)
 The color sticker has the following features:
   - Clicking on the blue button which is on the upper right of the webpage to create a new sticker
   - Clicking on the save button on the right bottom of the sticker, you can save its location and content with a callback function
